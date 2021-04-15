@@ -34,9 +34,10 @@ public class Controls {
     _game = othello;
 
     _controlsPane = new VBox();
+
     _controlsPane.setPadding(new Insets(10));
     _controlsPane.setSpacing(30);
-    _controlsPane.setAlignment(Pos.CENTER);
+    _controlsPane.setAlignment(Pos.CENTER_RIGHT);
 
     this.setupInstructions();
     /* TODO: Add score & turn labels. These should be contained in whatever class is controlling turn-taking, but
@@ -66,7 +67,7 @@ public class Controls {
 
     HBox playersMenu = new HBox();
     playersMenu.setSpacing(10);
-    playersMenu.setAlignment(Pos.CENTER);
+    playersMenu.setAlignment(Pos.CENTER_RIGHT);
     playersMenu.getChildren().addAll(this.playerMenu(Constants.WHITE),
         this.playerMenu(Constants.BLACK));
 
@@ -80,7 +81,7 @@ public class Controls {
     VBox playerMenu = new VBox();
     playerMenu.setPrefWidth(Constants.CONTROLS_PANE_WIDTH / 2);
     playerMenu.setSpacing(10);
-    playerMenu.setAlignment(Pos.CENTER);
+    playerMenu.setAlignment(Pos.CENTER_RIGHT);
 
     // Player color.
     String playerColor = "White";
@@ -192,6 +193,7 @@ public class Controls {
           You should have a method in the game class that sets the players of the game, and then call this method here
           with the information we provided! */
 
+      _game.startGame(whitePlayerMode, blackPlayerMode);
     }
   }
 
