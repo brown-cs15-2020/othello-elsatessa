@@ -28,4 +28,15 @@ public class Piece {
         _circle.setCenterX(x*50 +25);
         _circle.setCenterY(y*50 + 25);
     }
+
+    public int getXLocation(){
+
+        return (int) _circle.getCenterX();
+    }
+
+    public int getYLocation(){
+
+        return (int) _circle.getCenterY();
+
+    }
 }

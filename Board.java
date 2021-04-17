@@ -26,4 +26,9 @@ public class Board {
             }
         }
     }
+
+    public OthelloSquare[][] getArray(){
+
+        return _board;
+    }
 }
