@@ -47,13 +47,13 @@ public class Referee {
 
     }
     public Color returnaColor(){
-        if (_currentPlayer == _white)
-            return Color.GREEN;
-       else if(_currentPlayer == _black)
-            return Color.MAGENTA;
+       // if (_currentPlayer == _white)
+       //     return Color.GREEN;
+     //  else if(_currentPlayer == _black)
+       //     return Color.MAGENTA;
 
-        else
-            return Color.WHITE;
+     //   else
+            return Color.MAGENTA;
     }
 
     public void endTurn() {
@@ -71,33 +71,17 @@ public class Referee {
         return _currentPlayer;
     }
 
-    public boolean moveValidity(int x, int y) {
+    public boolean moveValidity(int row, int col) {
 
         boolean move = false;
 
-        for (int row = -1; row <= 1; row++) {
-            for (int col = -1; col <=1; col++) {
-
-                int currentRow = y + row;
-                int currentCol = x + col;
-
-                if(row==0 && col==0)
-                    break;
-
-                if (currentRow >= 0 && currentRow <= 7 && currentCol >= 0 && currentCol <= 7) {
-                    //also check if a sandwich can be made
-                    if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && this.Sandwich(y, x)){
-
-
-                        move = true;}
-                }
-
-            }
-
-        }
+        if(_board.getArray()[row][col].returnPiece(row, col)==null && this.Sandwich(row, col))
+            move=true;
 
         return move;
-    }
+
+                       }
+
 
     public boolean checkSquares(int a, int b){
         boolean check=false;
@@ -113,6 +97,7 @@ public class Referee {
 
     public boolean Sandwich(int x, int y) {
         Color color = Referee.this.returnaColor();
+
         int array =0;
         boolean flag = false;
         boolean mark = false;
@@ -130,20 +115,27 @@ public class Referee {
                     if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
 
                         System.out.println("goodbye");
-                        if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null)
-                            break;
-                        if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentRow).getColor() == color)
-                        { if (flag){
-                                return true;}
-                            else{
-                                break;}}
-                       else if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
+                        {if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
+                            System.out.println("cos");
+                            break;}}
+
+
+                        if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentRow).getColor() != color)
+                        {
                             flag = true;
                             System.out.println("fiona");
                             currentRow += i;
                             currentCol += j;
+                            }
 
-                        } }
+                        else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
+                        {   System.out.println("um");
+                        if (flag){
+                            return true;}
+                        else{
+                            break;}}
+
+                    }
                 }
 
             }}

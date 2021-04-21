@@ -80,16 +80,16 @@ public class OthelloSquare {
 */
     }
 
-    public void addPiece(int x, int y, Color color){
+    public void addPiece(int row, int col, Color color){
 
-        _pieces[y][x]= new Piece();
-        _pieces[y][x].setLocation(x, y);
-        _pieces[y][x].setColor(color);
-        _pane.getChildren().add(_pieces[y][x].getCircle());
+        _pieces[row][col]= new Piece();
+        _pieces[row][col].setLocation(row, col);
+        _pieces[row][col].setColor(color);
+        _pane.getChildren().add(_pieces[row][col].getCircle());
     }
 
-    public Piece returnPiece(int x, int y){
-        return _pieces[x][y];
+    public Piece returnPiece(int row, int col){
+        return _pieces[row][col];
     }
 
     public Color returnColor(int x, int y){

@@ -23,10 +23,10 @@ public class Piece {
         _circle.setFill(color);
     }
     //takes in the array index of where the circle needs to be set
-    public void setLocation(int x, int y){
+    public void setLocation(int row, int col){
 
-        _circle.setCenterX(x*50 +25);
-        _circle.setCenterY(y*50 + 25);
+        _circle.setCenterX(col*50 +25);
+        _circle.setCenterY(row*50 + 25);
     }
 
     public int getXLocation(){
