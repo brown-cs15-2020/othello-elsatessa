@@ -38,14 +38,18 @@ public class Referee {
     }
 
 
+    //set up Timeline- pause and play timeline
+    //set up timeline when apply settings is clicked
     private void setupTimeLine() {
 
+        //call moveOver method
        // KeyFrame kf = new KeyFrame(Duration.seconds(.4), new Referee.OthelloMover());
     //    _timeline = new Timeline(kf);
         _timeline.setCycleCount(Animation.INDEFINITE);
         _timeline.play();
 
     }
+
     public Color returnaColor(){
        // if (_currentPlayer == _white)
        //     return Color.GREEN;
@@ -159,4 +163,5 @@ public class Referee {
         }
 
 
+        //create TimeHandler
     }

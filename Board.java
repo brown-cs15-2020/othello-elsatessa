@@ -14,6 +14,10 @@ public class Board {
         this.setUpBoard();
     }
 
+    public Board (Board board){
+
+    }
+
     public void changeSquareColor(int row, int col){
         _board[row][col].changeSquareColor();
     }

@@ -21,6 +21,7 @@ public class Game {
         _ref = new Referee(_board);
 
 
+
       //  _whitePlayer = new HumanPlayer(_ref, _pane);
       //  _blackPlayer = new HumanPlayer(_ref, _pane);
 
@@ -37,14 +38,14 @@ public class Game {
            _whitePlayer.moveOver();
         }
         if (white!=0)
-            _whitePlayer = new ComputerPlayer(_ref, white);
+            _whitePlayer = new ComputerPlayer(_ref, white, _board);
         if (black==0)
         { _blackPlayer = new HumanPlayer(_ref, _pane, _board, Color.MAGENTA);
        _blackPlayer.moveOver();
         }
 
         if(black!=0)
-            _blackPlayer = new ComputerPlayer(_ref, black);
+            _blackPlayer = new ComputerPlayer(_ref, black, _board);
 
         _ref.takePlayer(_whitePlayer, _blackPlayer);
 
