@@ -19,7 +19,8 @@ public class HumanPlayer implements Player{
     private Referee _referee;
     private OthelloSquare _othelloSquare;
     private Board _board;
-    public HumanPlayer(Referee referee, Pane othello, Board board){
+    private Color _color;
+    public HumanPlayer(Referee referee, Pane othello, Board board, Color color){
 
         _board = board;
         _othello = othello;
@@ -30,6 +31,7 @@ public class HumanPlayer implements Player{
         circle.setFill(Color.RED);
         othello.getChildren().add(circle);
 
+       _color = color;
 
 
     }
@@ -55,8 +57,12 @@ public class HumanPlayer implements Player{
             System.out.println("hello");
             _row = (int) (event.getY()/50);
             _col = (int) (event.getX()/50);
-            _board.getArray()[_row][_col].addPiece(_row, _col);
-            System.out.println("elsa");
+            if (_referee.moveValidity(_col, _row)){
+                _referee.endTurn();
+            _board.getArray()[_row][_col].addPiece(_col, _row, _color);
+
+
+            System.out.println("elsa");}
 
 
         }

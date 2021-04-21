@@ -3,7 +3,10 @@ package othello;
 public class ComputerPlayer implements Player{
 
     private Referee _referee;
-    public ComputerPlayer(Referee referee){
+    private int _level;
+    public ComputerPlayer(Referee referee, int level){
+
+        _level = level;
         _referee = referee;
     }
 

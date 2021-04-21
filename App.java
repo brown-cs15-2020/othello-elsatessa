@@ -25,7 +25,7 @@ public class App extends Application {
         PaneOrganizer organizer = new PaneOrganizer();
 
         //creates scene that is 300 x 600
-        Scene scene = new Scene(organizer.getRoot(),  670, 400);
+        Scene scene = new Scene(organizer.getRoot(),  670, 800);
 
 
         // sets up the scene

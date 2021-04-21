@@ -37,7 +37,7 @@ public class Controls {
 
     _controlsPane.setPadding(new Insets(10));
     _controlsPane.setSpacing(30);
-    _controlsPane.setAlignment(Pos.CENTER_RIGHT);
+    _controlsPane.setAlignment(Pos.TOP_RIGHT);
 
     this.setupInstructions();
     /* TODO: Add score & turn labels. These should be contained in whatever class is controlling turn-taking, but

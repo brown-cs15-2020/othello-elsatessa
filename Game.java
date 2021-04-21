@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class Game {
 
@@ -17,7 +18,7 @@ public class Game {
 
         _pane = Othello;
         _board = new Board(_pane);
-        _ref = new Referee();
+        _ref = new Referee(_board);
 
 
       //  _whitePlayer = new HumanPlayer(_ref, _pane);
@@ -32,15 +33,18 @@ public class Game {
 
         //make first player move, then tell referee that it's done (inside moveOver), referee will end turn
         if (white==0)
-            _whitePlayer = new HumanPlayer(_ref, _pane, _board);
-            _whitePlayer.moveOver();
+        { _whitePlayer = new HumanPlayer(_ref, _pane, _board, Color.GREEN);
+           _whitePlayer.moveOver();
+        }
         if (white!=0)
-            _whitePlayer = new ComputerPlayer(_ref);
+            _whitePlayer = new ComputerPlayer(_ref, white);
         if (black==0)
-            _blackPlayer = new HumanPlayer(_ref, _pane, _board);
-        _blackPlayer.moveOver();
+        { _blackPlayer = new HumanPlayer(_ref, _pane, _board, Color.MAGENTA);
+       _blackPlayer.moveOver();
+        }
+
         if(black!=0)
-            _blackPlayer = new ComputerPlayer(_ref);
+            _blackPlayer = new ComputerPlayer(_ref, black);
 
         _ref.takePlayer(_whitePlayer, _blackPlayer);
 

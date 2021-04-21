@@ -25,6 +25,14 @@ public class OthelloSquare {
 
     }
 
+    public void changeSquareColor(){
+        _square.setFill(Color.GREY);
+    }
+
+    public void changeColorBack(){
+        _square.setFill(Color.GREY);
+    }
+
     public Rectangle getSquare() {
         return _square;
     }
@@ -72,13 +80,25 @@ public class OthelloSquare {
 */
     }
 
-    public void addPiece(int x, int y){
+    public void addPiece(int x, int y, Color color){
 
         _pieces[y][x]= new Piece();
-        _pieces[y][x].setLocation(y, x);
+        _pieces[y][x].setLocation(x, y);
+        _pieces[y][x].setColor(color);
         _pane.getChildren().add(_pieces[y][x].getCircle());
     }
 
+    public Piece returnPiece(int x, int y){
+        return _pieces[x][y];
+    }
+
+    public Color returnColor(int x, int y){
+        return _pieces[x][y].getColor();
+    }
+
+    public void changeColor(int x, int y, Color color){
+        _pieces[x][y].setColor(color);
+    }
 
 }
 

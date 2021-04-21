@@ -10,7 +10,7 @@ public class Piece {
     public Piece(){
 
         _circle = new Circle(20);
-        _circle.setFill(Color.PINK);
+        _circle.setFill(Color.MAGENTA);
 
 
     }
@@ -38,5 +38,14 @@ public class Piece {
 
         return (int) _circle.getCenterY();
 
+    }
+
+    public Color getColor(){
+        return (Color) _circle.getFill();
+    }
+
+    public void switchColor(Color color){
+
+        _circle.setFill(color);
     }
 }
