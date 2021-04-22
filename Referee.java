@@ -3,6 +3,8 @@ package othello;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -20,13 +22,10 @@ public class Referee {
     public Referee(Board board) {
         _board = board;
         //this.endTurn();
+        this.setupTimeLine();
 
-        _arrayOfInts = new int[8][2];
-        for (int i=0; i<8; i++){
-            _arrayOfInts[i][0]= 99;
-            _arrayOfInts[i][1]=99;
         }
-    }
+
 
 
     public void takePlayer(Player white, Player black) {
@@ -37,17 +36,59 @@ public class Referee {
 
     }
 
+    public int returnPlayerr(){
+        if (_currentPlayer==_white)
+            return 0;
+        else
+            return 1;
+
+    }
+
 
     //set up Timeline- pause and play timeline
     //set up timeline when apply settings is clicked
     private void setupTimeLine() {
 
         //call moveOver method
-       // KeyFrame kf = new KeyFrame(Duration.seconds(.4), new Referee.OthelloMover());
-    //    _timeline = new Timeline(kf);
+      KeyFrame kf = new KeyFrame(Duration.seconds(.4), new Referee.OthelloMover());
+      _timeline = new Timeline(kf);
         _timeline.setCycleCount(Animation.INDEFINITE);
         _timeline.play();
 
+    }
+
+    public boolean cantMove(Color color, Board board){
+
+
+      for (int row=0; row<8; row++){
+          for (int col=0; col<8; col++){
+              if(this.moveValidity(row,col, color))
+                  return false;
+          }
+      }
+        return true;
+    }
+
+    public Color whoWins(Board board){
+        int black=0;
+        int white=0;
+        for (int row=0; row<8; row++){
+            for (int col=0; col<8; col++){
+                if(board.getArray()[row][col].returnPiece(row,col).getColor()==Color.MAGENTA)
+                    black++;
+                else if(board.getArray()[row][col].returnPiece(row,col).getColor()==Color.GREEN)
+                    white++;
+            }
+
+
+        }
+
+        if(white>black){
+            return Color.GREEN;}
+        else if(black>white){
+            return Color.MAGENTA;}
+        else
+            return Color.YELLOW;
     }
 
     public Color returnaColor(){
@@ -75,32 +116,22 @@ public class Referee {
         return _currentPlayer;
     }
 
-    public boolean moveValidity(int row, int col) {
+    public boolean moveValidity(int row, int col, Color color) {
 
         boolean move = false;
 
-        if(_board.getArray()[row][col].returnPiece(row, col)==null && this.Sandwich(row, col))
-            move=true;
-
+        if(_board.getArray()[row][col].returnPiece(row, col)==null && this.Sandwich(row, col, color)) {
+            move = true;
+            _board.getArray()[row][col].changeColor(row, col, Color.GREY);
+        }
         return move;
 
                        }
 
 
-    public boolean checkSquares(int a, int b){
-        boolean check=false;
-        if(_board.getArray()[a][b].returnPiece(a,b)==null)
-            check=true;
-        if(_board.getArray()[a][b].returnPiece(a,b).getColor()== this.returnaColor())
-            check=true;
-        if(_board.getArray()[a][b].returnPiece(a,b).getColor()!= this.returnaColor())
-            check = false;
 
-        return check;
-    }
+    public boolean Sandwich(int x, int y, Color color) {
 
-    public boolean Sandwich(int x, int y) {
-        Color color = Referee.this.returnaColor();
 
         int array =0;
         boolean flag = false;
@@ -148,20 +179,16 @@ public class Referee {
         //flip every turn
         public void flip(int x, int y){
 
-        for (int i=0; i<9; i++) {
-
-            if (_arrayOfInts[i][0] != 99) {
-                int a = _arrayOfInts[i][0];
-                int b = _arrayOfInts[i][0];
-
-                while(a>x && b==y){
-                    a--;
-                    _board.getArray()[a][b].returnPiece(a, b).switchColor(this.returnaColor());
-                }
-            }
-        }
         }
 
 
         //create TimeHandler
+    private class OthelloMover implements EventHandler<ActionEvent>{
+
+
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        }
     }

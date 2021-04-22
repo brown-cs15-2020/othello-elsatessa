@@ -13,4 +13,14 @@ public class Move {
 
     }
 
+    public int getValue(){
+        return _value;
+    }
+
+    public int getRow(){
+        return _row;
+    }
+    public int getCol(){
+        return _col;
+    }
 }
