@@ -59,9 +59,8 @@ public class HumanPlayer implements Player{
             _col = (int) (event.getX()/50);
             _referee.moveValidity(_row, _col, _color);
             if (_referee.moveValidity(_row, _col, _color)){
-                _referee.endTurn();
             _board.getArray()[_row][_col].addPiece(_row, _col, _color);
-
+                _referee.endTurn();
             System.out.println("elsa");}
 
 

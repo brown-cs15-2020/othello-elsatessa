@@ -17,7 +17,7 @@ public class Referee {
     private Player _black;
     private Player _currentPlayer;
     private Board _board;
-    private int[][] _arrayOfInts;
+
 
     public Referee(Board board) {
         _board = board;
@@ -92,12 +92,12 @@ public class Referee {
     }
 
     public Color returnaColor(){
-       // if (_currentPlayer == _white)
-       //     return Color.GREEN;
-     //  else if(_currentPlayer == _black)
-       //     return Color.MAGENTA;
+       if (_currentPlayer == _white)
+          return Color.GREEN;
+     else if(_currentPlayer == _black)
+         return Color.MAGENTA;
 
-     //   else
+      else
             return Color.MAGENTA;
     }
 
@@ -108,8 +108,7 @@ public class Referee {
          else
             _currentPlayer = _white;
 
-
-         _currentPlayer.moveOver();
+         _timeline.play();
     }
 
     public Player returnPlayer(){
@@ -188,6 +187,14 @@ public class Referee {
 
             @Override
             public void handle(ActionEvent event) {
+                _timeline.pause();
+                if (!Referee.this.cantMove(Referee.this.returnaColor(), _board))
+                {  _currentPlayer.moveOver();
+
+
+                }
+                else
+                    Referee.this.endTurn();
 
             }
         }

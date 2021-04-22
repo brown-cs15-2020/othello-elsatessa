@@ -11,13 +11,15 @@ public class ComputerPlayer implements Player {
     private Board _board;
     private Color _mainColor;
     private Color _otherColor;
+    private Color _color;
 
-    public ComputerPlayer(Referee referee, int level, Board board) {
+    public ComputerPlayer(Referee referee, int level, Board board, Color color) {
 
         _level = level;
         _referee = referee;
         _board = board;
         _currentPlayer = _referee.returnPlayer();
+        _color = color;
     }
 
     public int evaluateBoard(Board board, Color color) {
@@ -43,6 +45,11 @@ public class ComputerPlayer implements Player {
 
     @Override
     public boolean moveOver() {
+
+       Move move= this.getBestMove(_board, _level, _color);
+        _board.getArray()[move.getRow()][move.getCol()].addPiece(move.getRow(), move.getCol(), _color);
+        _referee.flip(move.getRow(), move.getCol());
+        _referee.endTurn();
 
         return false;
     }
