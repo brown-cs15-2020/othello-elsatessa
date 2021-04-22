@@ -22,7 +22,7 @@ public class Referee {
     public Referee(Board board) {
         _board = board;
         //this.endTurn();
-        this.setupTimeLine();
+       // this.setupTimeLine();
 
         }
 
@@ -108,7 +108,8 @@ public class Referee {
          else
             _currentPlayer = _white;
 
-         _timeline.play();
+         this.setupTimeLine();
+        _timeline.play();
     }
 
     public Player returnPlayer(){
@@ -129,7 +130,7 @@ public class Referee {
 
 
 
-    public boolean Sandwich(int x, int y, Color color) {
+    public boolean Sandwich(int row, int col, Color color) {
 
 
         int array =0;
@@ -138,37 +139,39 @@ public class Referee {
         for (int i=-1; i<= 1; i++){
             for (int j=-1; j<= 1; j++) {
 
-                int currentRow = y + i;
-                int currentCol = x + j;
+                int currentRow = row + i;
+                int currentCol = col + j;
                 flag = false;
 
                 while (true) {
 
-                    System.out.println("elsa");
+                  //  System.out.println("elsa");
                     //checks to see if on board
                     if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
 
-                        System.out.println("goodbye");
+                        //System.out.println("goodbye");
                         {if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
-                            System.out.println("cos");
+                           // System.out.println("cos");
                             break;}}
 
 
                         if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentRow).getColor() != color)
                         {
                             flag = true;
-                            System.out.println("fiona");
+                           // System.out.println("fiona");
                             currentRow += i;
                             currentCol += j;
                             }
 
                         else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
-                        {   System.out.println("um");
+                        {   //System.out.println("um");
                         if (flag){
                             return true;}
                         else{
                             break;}}
 
+                        System.out.println(currentRow);
+                        System.out.println(currentCol);
                     }
                 }
 

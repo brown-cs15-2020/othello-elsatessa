@@ -22,12 +22,6 @@ public class Game {
 
 
 
-      //  _whitePlayer = new HumanPlayer(_ref, _pane);
-      //  _blackPlayer = new HumanPlayer(_ref, _pane);
-
-       //. this.startGame(0, 0);
-
-
     }
 
    public void startGame(int white, int black){
@@ -38,30 +32,19 @@ public class Game {
            _whitePlayer.moveOver();
         }
         if (white!=0)
-            _whitePlayer = new ComputerPlayer(_ref, white, _board);
+            _whitePlayer = new ComputerPlayer(_ref, white, _board, Color.GREEN);
         if (black==0)
         { _blackPlayer = new HumanPlayer(_ref, _pane, _board, Color.MAGENTA);
        _blackPlayer.moveOver();
         }
 
         if(black!=0)
-            _blackPlayer = new ComputerPlayer(_ref, black, _board);
+            _blackPlayer = new ComputerPlayer(_ref, black, _board, Color.MAGENTA);
 
         _ref.takePlayer(_whitePlayer, _blackPlayer);
 
     }
 
 
-   /* private class Clicker implements ActionEvent<MouseEvent>{
-
-        private Clicker(){
-
-        }
-
-        public void handle(MouseEvent e){
-            MouseButton mouseButton =
-        }
-
-    }*/
 
 }
