@@ -21,7 +21,7 @@ public class OthelloSquare {
         _square = new Rectangle(50, 50);
         _square.setFill(Color.WHITE);
         _square.setStroke(Color.BLACK);
-        this.setupBoardwithPieces();
+      this.setupBoardwithPieces();
 
     }
 
@@ -45,8 +45,13 @@ public class OthelloSquare {
 
     public void setupBoardwithPieces() {
 
+this.addPiece(3,3, Color.MAGENTA);
+this.addPiece(3, 4, Color.GREEN);
+this.addPiece(4, 3, Color.GREEN);
+this.addPiece(4, 4, Color.MAGENTA);
 
-        _pieces[3][3]= new Piece();
+this.flipColor(3, 3, Color.GREEN);
+      /*  _pieces[3][3]= new Piece();
         _pieces[3][3].setLocation(3,3);
         _pane.getChildren().add(_pieces[3][3].getCircle());
 
@@ -62,6 +67,7 @@ public class OthelloSquare {
         _pieces[4][3]= new Piece();
         _pieces[4][3].setColor(Color.GREEN);
         _pieces[4][3].setLocation(4,3);
+
         _pane.getChildren().add(_pieces[4][3].getCircle());
 
        /* for (int i = 0; i < 8; i++) {
@@ -89,6 +95,7 @@ public class OthelloSquare {
     }
 
     public Piece returnPiece(int row, int col){
+
         return _pieces[row][col];
     }
 
@@ -96,9 +103,14 @@ public class OthelloSquare {
         return _pieces[x][y].getColor();
     }
 
-    public void changeColor(int x, int y, Color color){
-        _pieces[x][y].setColor(color);
+    public void flipColor(int row, int col, Color color){
+
+        _pieces[row][col].getCircle().setFill(color);
     }
+
+    //public void changeColor(int x, int y, Color color){
+    //    _pieces[x][y].setColor(color);
+  //  }
 
 }
 

@@ -21,6 +21,11 @@ public class Referee {
 
     public Referee(Board board) {
         _board = board;
+        _board.getArray()[3][3].addPiece(3,3, Color.MAGENTA);
+        _board.getArray()[4][4].addPiece(4,4, Color.MAGENTA);
+        _board.getArray()[4][3].addPiece(4,3, Color.GREEN);
+        _board.getArray()[3][4].addPiece(3,4, Color.GREEN);
+
         //this.endTurn();
        // this.setupTimeLine();
 
@@ -32,6 +37,7 @@ public class Referee {
         _white = white;
         _black = black;
         _currentPlayer = _black;
+        this.setupTimeLine();
       //  this.endTurn();
 
     }
@@ -62,7 +68,7 @@ public class Referee {
 
       for (int row=0; row<8; row++){
           for (int col=0; col<8; col++){
-              if(this.moveValidity(row,col, color))
+              if(this.moveValidity(row,col, color, board))
                   return false;
           }
       }
@@ -73,13 +79,15 @@ public class Referee {
         int black=0;
         int white=0;
         for (int row=0; row<8; row++){
-            for (int col=0; col<8; col++){
-                if(board.getArray()[row][col].returnPiece(row,col).getColor()==Color.MAGENTA)
-                    black++;
-                else if(board.getArray()[row][col].returnPiece(row,col).getColor()==Color.GREEN)
-                    white++;
-            }
+            for (int col=0; col<8; col++) {
 
+                if (board.getArray()[row][col].returnPiece(row, col) != null) {
+                    if (board.getArray()[row][col].returnPiece(row, col).getColor() == Color.MAGENTA)
+                        black++;
+                    else if (board.getArray()[row][col].returnPiece(row, col).getColor() == Color.GREEN)
+                        white++;
+                }
+            }
 
         }
 
@@ -102,13 +110,13 @@ public class Referee {
     }
 
     public void endTurn() {
-
+        System.out.println("turnover");
         if (_currentPlayer == _white)
             _currentPlayer = _black;
          else
             _currentPlayer = _white;
 
-         this.setupTimeLine();
+
         _timeline.play();
     }
 
@@ -116,13 +124,13 @@ public class Referee {
         return _currentPlayer;
     }
 
-    public boolean moveValidity(int row, int col, Color color) {
+    public boolean moveValidity(int row, int col, Color color, Board board) {
 
         boolean move = false;
 
-        if(_board.getArray()[row][col].returnPiece(row, col)==null && this.Sandwich(row, col, color)) {
+        if(board.getArray()[row][col].returnPiece(row, col)==null && this.Sandwich(row, col, color, board)) {
             move = true;
-            _board.getArray()[row][col].changeColor(row, col, Color.GREY);
+          //  _board.getArray()[row][col].changeColor(row, col, Color.GREY);
         }
         return move;
 
@@ -130,14 +138,15 @@ public class Referee {
 
 
 
-    public boolean Sandwich(int row, int col, Color color) {
+    public boolean Sandwich(int row, int col, Color color, Board board) {
 
 
-        int array =0;
+
         boolean flag = false;
-        boolean mark = false;
+
         for (int i=-1; i<= 1; i++){
             for (int j=-1; j<= 1; j++) {
+
 
                 int currentRow = row + i;
                 int currentCol = col + j;
@@ -150,39 +159,166 @@ public class Referee {
                     if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
 
                         //System.out.println("goodbye");
-                        {if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
-                           // System.out.println("cos");
+                        {if (board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
+
                             break;}}
-
-
-                        if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentRow).getColor() != color)
                         {
-                            flag = true;
-                           // System.out.println("fiona");
-                            currentRow += i;
-                            currentCol += j;
+
+                            if (board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && board.getArray()[currentRow][currentCol].returnColor(currentRow, currentCol) != color) {
+                                flag = true;
+                                currentRow += i;
+                                currentCol += j;
+                               
+                            } else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
+                            {
+                                if (flag) {
+
+                                    return true;
+                                } else {
+                                    break;
+                                }
                             }
+                        }
 
-                        else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
-                        {   //System.out.println("um");
-                        if (flag){
-                            return true;}
-                        else{
-                            break;}}
-
-                        System.out.println(currentRow);
-                        System.out.println(currentCol);
                     }
+                    else
+                        break;
                 }
 
             }}
         return false;
     }
-        //flip every turn
-        public void flip(int x, int y){
 
+    public void flip(int row, int col, Color color, Board board){
+        {
+
+            System.out.println("flip");
+            boolean flag;
+            for (int i=-1; i<= 1; i++){
+                for (int j=-1; j<= 1; j++) {
+
+                    int currentRow = row + i;
+                    int currentCol = col + j;
+                    flag = false;
+
+                    while (true) {
+
+                        //  System.out.println("elsa");
+                        //checks to see if on board
+                        if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
+
+                            //System.out.println("goodbye");
+                            {if (board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
+
+                                break;}}
+                            {
+
+                                if (board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && board.getArray()[currentRow][currentCol].returnColor(currentRow, currentCol) != color) {
+                                    flag = true;
+                                    currentRow += i;
+                                    currentCol += j;
+
+                                } else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
+                                {
+                                    if (flag) {
+
+                                        System.out.println("testflip");
+                                        while(currentRow!=row || currentCol!=col) {
+                                            System.out.println("testinggg");
+                                            currentRow -= i;
+                                            currentCol -= j;
+
+                                            System.out.println(currentRow);
+                                            System.out.println(currentCol);
+
+                                            board.getArray()[currentRow][currentCol].flipColor(currentRow, currentCol, color);
+                                        }
+                                        break;
+                                    }else {
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                            break;
+                    }
+                }
+
+            }}
+
+
+
+
+    }
+
+    //flip every turn
+
+  /*  public void flip(int row, int col, Color color) {
+
+
+
+        boolean flag = false;
+
+        for (int i=-1; i<= 1; i++){
+            for (int j=-1; j<= 1; j++) {
+
+
+                int currentRow = row + i;
+                int currentCol = col + j;
+                flag = false;
+
+                while (true) {
+
+                    //  System.out.println("elsa");
+                    //checks to see if on board
+                    if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
+
+                        //System.out.println("goodbye");
+                        {if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
+
+                            break;}}
+                        {
+
+                            if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnColor(currentRow, currentCol) != color) {
+                                flag = true;
+                                currentRow += i;
+                                currentCol += j;
+
+                            } else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
+                            {
+                                if (flag) {
+
+                                   this.helpFlip(row, col, i, j, color);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                    else
+                        break;
+                }
+
+            }}
+
+    }
+
+
+    public void helpFlip(int row, int col, int i, int j, Color color){
+
+        int currentRow = row +i;
+        int currentCol = col+j;
+        while(_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol)!= null){
+
+            _board.getArray()[currentRow][currentCol].flipColor(currentRow, currentCol, color);
+            currentRow+=i;
+            currentCol+=j;
         }
-
+    }
+*/
 
         //create TimeHandler
     private class OthelloMover implements EventHandler<ActionEvent>{
@@ -190,6 +326,7 @@ public class Referee {
 
             @Override
             public void handle(ActionEvent event) {
+
                 _timeline.pause();
                 if (!Referee.this.cantMove(Referee.this.returnaColor(), _board))
                 {  _currentPlayer.moveOver();
@@ -202,3 +339,4 @@ public class Referee {
             }
         }
     }
+

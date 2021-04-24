@@ -33,6 +33,7 @@ public class Game {
         }
         if (white!=0)
             _whitePlayer = new ComputerPlayer(_ref, white, _board, Color.GREEN);
+
         if (black==0)
         { _blackPlayer = new HumanPlayer(_ref, _pane, _board, Color.MAGENTA);
        _blackPlayer.moveOver();

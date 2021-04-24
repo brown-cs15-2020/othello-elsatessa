@@ -30,7 +30,7 @@ public class ComputerPlayer implements Player {
             for (int j = 0; j < 8; j++) {
 
                 if (board.getArray()[i][j].returnPiece(i, j) == null) {
-                    break;
+                    continue;
                 } else if (board.getArray()[i][j].returnPiece(i, j).getColor() == color) {
                     value = value + Constants.SCORE[i][j];
                 } else
@@ -48,7 +48,7 @@ public class ComputerPlayer implements Player {
 
        Move move= this.getBestMove(_board, _level, _color);
         _board.getArray()[move.getRow()][move.getCol()].addPiece(move.getRow(), move.getCol(), _color);
-        _referee.flip(move.getRow(), move.getCol());
+       // _referee.flip(move.getRow(), move.getCol(), _color);
         _referee.endTurn();
 
         return false;
@@ -69,63 +69,84 @@ public class ComputerPlayer implements Player {
     }
 
     //ba
+
     public Move getBestMove(Board board, int intelligence, Color color) {
 
         int highestRow=-1;
         int highestCol =-1;
         int value=0;
-        int highestVal=0;
-        _level = intelligence;
-        _board = new Board(board);
-        _mainColor=color;
-        if(_mainColor== Color.MAGENTA)
-            _otherColor= Color.GREEN;
-        else if(_mainColor== Color.GREEN)
-            _otherColor = Color.MAGENTA;
+        int highestVal=-10000;
 
-        if (this.gameOver(_board) && _referee.whoWins(_board)==color)
+       Color otherColor;
+        //Color mainColor =color;
+        if(color== Color.MAGENTA)
+            otherColor= Color.GREEN;
+        else
+            otherColor = Color.MAGENTA;
+
+        System.out.println("ben");
+        if (!this.gameOver(board) && _referee.whoWins(board)==color)
             return new Move(0, 0, 1000);
-        else if (this.gameOver(_board) && _referee.whoWins(_board)!=Color.YELLOW && _referee.whoWins(_board)!= color)
+        else if (!this.gameOver(board) && _referee.whoWins(board)!=Color.YELLOW && _referee.whoWins(board)!= color)
             return new Move(0, 0, -1000);
-        else if (this.gameOver(_board) && _referee.whoWins(_board)== Color.YELLOW)
+        else if (!this.gameOver(board) && _referee.whoWins(board)== Color.YELLOW)
             return new Move(0, 0, 0);
 
+
+        //method that tests if no moves at all
+//        if (!_referee.moveValidity(row, col, color, board)) {
+//            if (_level == 1)
+//                return new Move(0, 0, -1000);
+//            else{
+//                value = -1* (getBestMove(board, intelligence - 1, otherColor)).getValue();
+//                return new Move(0,0, value);
+//                //negative
+//        }}
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
 
-                if (_referee.moveValidity(row, col, color)) {
+              //  if(row==2 && col ==3){
+             //   System.out.println("nate");}
+
+                //method that
+                if (_referee.moveValidity(row, col, color, board)) {
                     //iterate through all valid moves, make a copy board, test move on copy board
 
+                            Board copyBoard = new Board(board);
+                            copyBoard.getArray()[row][col].addPiece(row, col, color);
+                            _referee.flip(row, col, color, copyBoard);
 
-                        if (!_referee.moveValidity(row, col, color)) {
-                            if (_level == 1)
-                                return new Move(row, col, -1000);
-                            else
-                                value = -1* (getBestMove(_board, _level - 1, _otherColor)).getValue(); //negative
-                        }
-
-                        if(_referee.moveValidity(row, col, color)) {
-                            _board.getArray()[row][col].addPiece(row, col, color);
-
-                            if(intelligence==1)
-                                value=this.evaluateBoard(_board, color);
+                            if(intelligence==1) {
+                                //look into this value
+                                value = this.evaluateBoard(copyBoard, color);
+                                System.out.println(value);
+                            }
                              else
-                                 value = -1* (getBestMove(_board, _level -1, _otherColor).getValue());
+                                 value = -1* (getBestMove(copyBoard, intelligence -1, otherColor).getValue());
+
+
 
                         }
 
-                        }
 
-                if(value>highestVal){
+
+
+                if(value>=highestVal){
                     highestVal=value;
                     highestRow =row;
                     highestCol=col;
 
+
                 }
                     }
                 }
+        System.out.println(highestRow);
+        System.out.println(highestCol);
+        System.out.println(highestVal);
+
         return new Move(highestRow, highestCol, highestVal);
+
             }
         }
 

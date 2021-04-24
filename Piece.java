@@ -22,6 +22,7 @@ public class Piece {
     public void setColor(Color color){
         _circle.setFill(color);
     }
+
     //takes in the array index of where the circle needs to be set
     public void setLocation(int row, int col){
 
@@ -41,7 +42,7 @@ public class Piece {
     }
 
     public Color getColor(){
-        return (Color) _circle.getFill();
+       return (Color) _circle.getFill();
     }
 
     public void switchColor(Color color){
