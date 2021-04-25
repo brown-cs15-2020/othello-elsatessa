@@ -43,12 +43,13 @@ public class ComputerPlayer implements Player {
     }
 
 
+
     @Override
     public boolean moveOver() {
 
        Move move= this.getBestMove(_board, _level, _color);
         _board.getArray()[move.getRow()][move.getCol()].addPiece(move.getRow(), move.getCol(), _color);
-       // _referee.flip(move.getRow(), move.getCol(), _color);
+        _referee.flip(move.getRow(), move.getCol(), _color, _board);
         _referee.endTurn();
 
         return false;
@@ -85,16 +86,16 @@ public class ComputerPlayer implements Player {
             otherColor = Color.MAGENTA;
 
         System.out.println("ben");
-        if (!this.gameOver(board) && _referee.whoWins(board)==color)
-            return new Move(0, 0, 1000);
-        else if (!this.gameOver(board) && _referee.whoWins(board)!=Color.YELLOW && _referee.whoWins(board)!= color)
-            return new Move(0, 0, -1000);
-        else if (!this.gameOver(board) && _referee.whoWins(board)== Color.YELLOW)
-            return new Move(0, 0, 0);
-
+//        if (!this.gameOver(board) && _referee.whoWins(board)==color)
+//            return new Move(0, 0, 1000);
+//        else if (!this.gameOver(board) && _referee.whoWins(board)!=Color.YELLOW && _referee.whoWins(board)!= color)
+//            return new Move(0, 0, -1000);
+//        else if (!this.gameOver(board) && _referee.whoWins(board)== Color.YELLOW)
+//            return new Move(0, 0, 0);
+//
 
         //method that tests if no moves at all
-//        if (!_referee.moveValidity(row, col, color, board)) {
+//        if (_referee.cantMove(color, board)) {
 //            if (_level == 1)
 //                return new Move(0, 0, -1000);
 //            else{
@@ -111,6 +112,9 @@ public class ComputerPlayer implements Player {
 
                 //method that
                 if (_referee.moveValidity(row, col, color, board)) {
+
+                    System.out.println("row" + row);
+                    System.out.println("col" + col);
                     //iterate through all valid moves, make a copy board, test move on copy board
 
                             Board copyBoard = new Board(board);
@@ -120,30 +124,30 @@ public class ComputerPlayer implements Player {
                             if(intelligence==1) {
                                 //look into this value
                                 value = this.evaluateBoard(copyBoard, color);
-                                System.out.println(value);
+                                System.out.println("Value" +value);
                             }
                              else
-                                 value = -1* (getBestMove(copyBoard, intelligence -1, otherColor).getValue());
+                            { value = -1* (getBestMove(copyBoard, intelligence -1, otherColor).getValue());}
 
 
+                    if(value>=highestVal){
+                        highestVal=value;
+                        highestRow =row;
+                        highestCol=col;
 
+                        System.out.println("highest Row" + highestRow);
+                        System.out.println("highest Col" + highestCol);
+
+                    }
                         }
 
 
-
-
-                if(value>=highestVal){
-                    highestVal=value;
-                    highestRow =row;
-                    highestCol=col;
-
-
-                }
                     }
                 }
-        System.out.println(highestRow);
-        System.out.println(highestCol);
-        System.out.println(highestVal);
+
+       // System.out.println(highestRow);
+       // System.out.println(highestCol);
+       // System.out.println(highestVal);
 
         return new Move(highestRow, highestCol, highestVal);
 

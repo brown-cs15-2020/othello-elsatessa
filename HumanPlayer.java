@@ -40,6 +40,7 @@ public class HumanPlayer implements Player{
         this.addGrey(_color);
         _othello.setOnMouseClicked(new HumanPlayer.ClickHandler());
         _othello.setFocusTraversable(true);
+
         return false;
     }
 
@@ -58,6 +59,15 @@ public class HumanPlayer implements Player{
     }
 
 
+    public void removeGrey(Color color){
+
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+
+                _board.getArray()[i][j].changeColorBack();
+            }
+        }
+    }
 
     private class ClickHandler implements EventHandler<MouseEvent> {
 
@@ -67,20 +77,23 @@ public class HumanPlayer implements Player{
         @Override
         public void handle(MouseEvent event) {
 
-            System.out.println("hello");
+
+          //  System.out.println("hello");
             _row = (int) (event.getY()/50);
             _col = (int) (event.getX()/50);
            _referee.moveValidity(_row, _col, _color, _board);
 
             if (_referee.moveValidity(_row, _col, _color, _board)){
 
-                System.out.println("test");
+              //  System.out.println("test");
             _board.getArray()[_row][_col].addPiece(_row, _col, _color);
 
          _referee.flip(_row, _col, _color, _board);
 
                 _referee.endTurn();
-            System.out.println("elsa");}
+          //  System.out.println("elsa");
+                HumanPlayer.this.removeGrey(_color);
+            }
 
 
         }

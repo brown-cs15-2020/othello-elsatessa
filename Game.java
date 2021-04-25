@@ -29,14 +29,14 @@ public class Game {
         //make first player move, then tell referee that it's done (inside moveOver), referee will end turn
         if (white==0)
         { _whitePlayer = new HumanPlayer(_ref, _pane, _board, Color.GREEN);
-           _whitePlayer.moveOver();
+          // _whitePlayer.moveOver();
         }
         if (white!=0)
             _whitePlayer = new ComputerPlayer(_ref, white, _board, Color.GREEN);
 
         if (black==0)
         { _blackPlayer = new HumanPlayer(_ref, _pane, _board, Color.MAGENTA);
-       _blackPlayer.moveOver();
+      // _blackPlayer.moveOver();
         }
 
         if(black!=0)

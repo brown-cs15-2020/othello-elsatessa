@@ -56,7 +56,7 @@ public class Referee {
     private void setupTimeLine() {
 
         //call moveOver method
-      KeyFrame kf = new KeyFrame(Duration.seconds(.4), new Referee.OthelloMover());
+      KeyFrame kf = new KeyFrame(Duration.seconds(1), new Referee.OthelloMover());
       _timeline = new Timeline(kf);
         _timeline.setCycleCount(Animation.INDEFINITE);
         _timeline.play();
@@ -110,7 +110,7 @@ public class Referee {
     }
 
     public void endTurn() {
-        System.out.println("turnover");
+      //  System.out.println("turnover");
         if (_currentPlayer == _white)
             _currentPlayer = _black;
          else
@@ -192,7 +192,7 @@ public class Referee {
     public void flip(int row, int col, Color color, Board board){
         {
 
-            System.out.println("flip");
+          //  System.out.println("flip");
             boolean flag;
             for (int i=-1; i<= 1; i++){
                 for (int j=-1; j<= 1; j++) {
@@ -222,14 +222,14 @@ public class Referee {
                                 {
                                     if (flag) {
 
-                                        System.out.println("testflip");
+                                       // System.out.println("testflip");
                                         while(currentRow!=row || currentCol!=col) {
-                                            System.out.println("testinggg");
+                                          //  System.out.println("testinggg");
                                             currentRow -= i;
                                             currentCol -= j;
 
-                                            System.out.println(currentRow);
-                                            System.out.println(currentCol);
+                                          //  System.out.println(currentRow);
+                                          //  System.out.println(currentCol);
 
                                             board.getArray()[currentRow][currentCol].flipColor(currentRow, currentCol, color);
                                         }

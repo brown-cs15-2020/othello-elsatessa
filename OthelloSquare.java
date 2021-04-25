@@ -21,7 +21,7 @@ public class OthelloSquare {
         _square = new Rectangle(50, 50);
         _square.setFill(Color.WHITE);
         _square.setStroke(Color.BLACK);
-      this.setupBoardwithPieces();
+     // this.setupBoardwithPieces();
 
     }
 
@@ -30,7 +30,7 @@ public class OthelloSquare {
     }
 
     public void changeColorBack(){
-        _square.setFill(Color.GREY);
+        _square.setFill(Color.WHITE);
     }
 
     public Rectangle getSquare() {
