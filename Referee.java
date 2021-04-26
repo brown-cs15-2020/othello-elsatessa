@@ -5,6 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -17,6 +20,8 @@ public class Referee {
     private Player _black;
     private Player _currentPlayer;
     private Board _board;
+    private Label _b1;
+    private Label _b2;
 
 
     public Referee(Board board) {
@@ -75,6 +80,33 @@ public class Referee {
         return true;
     }
 
+
+    public int PinkScore (Board board){
+        int pink=0;
+
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+
+                if(board.getArray()[i][j].returnColor(i, j)==Color.MAGENTA)
+                    pink++;
+            }
+        }
+        return pink;
+    }
+    public int GreenScore (Board board){
+        int green=0;
+
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+
+                if(board.getArray()[i][j].returnColor(i, j)==Color.GREEN)
+                    green++;
+            }
+        }
+        return green;
+    }
+
+
     public Color whoWins(Board board){
         int black=0;
         int white=0;
@@ -102,11 +134,17 @@ public class Referee {
     public Color returnaColor(){
        if (_currentPlayer == _white)
           return Color.GREEN;
-     else if(_currentPlayer == _black)
+     else
          return Color.MAGENTA;
 
-      else
-            return Color.MAGENTA;
+    }
+
+    public String currentPlayer(){
+
+        if (_currentPlayer == _white)
+            return "Green";
+        else
+            return "Pink";
     }
 
     public void endTurn() {
@@ -252,73 +290,12 @@ public class Referee {
 
 
     }
+public void setupLabels(VBox labelPane){
+        _b1 = new Label("Green: 2 Pink: 2");
+        _b2 = new Label ("Current Player: Pink");
+        labelPane.getChildren().addAll(_b1, _b2);
 
-    //flip every turn
-
-  /*  public void flip(int row, int col, Color color) {
-
-
-
-        boolean flag = false;
-
-        for (int i=-1; i<= 1; i++){
-            for (int j=-1; j<= 1; j++) {
-
-
-                int currentRow = row + i;
-                int currentCol = col + j;
-                flag = false;
-
-                while (true) {
-
-                    //  System.out.println("elsa");
-                    //checks to see if on board
-                    if (currentRow >= 0 && currentRow < 8 && currentCol >= 0 && currentCol < 8) {
-
-                        //System.out.println("goodbye");
-                        {if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) == null){
-
-                            break;}}
-                        {
-
-                            if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnColor(currentRow, currentCol) != color) {
-                                flag = true;
-                                currentRow += i;
-                                currentCol += j;
-
-                            } else//if (_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol) != null && _board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol).getColor() != color) {
-                            {
-                                if (flag) {
-
-                                   this.helpFlip(row, col, i, j, color);
-                                } else {
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-                    else
-                        break;
-                }
-
-            }}
-
-    }
-
-
-    public void helpFlip(int row, int col, int i, int j, Color color){
-
-        int currentRow = row +i;
-        int currentCol = col+j;
-        while(_board.getArray()[currentRow][currentCol].returnPiece(currentRow, currentCol)!= null){
-
-            _board.getArray()[currentRow][currentCol].flipColor(currentRow, currentCol, color);
-            currentRow+=i;
-            currentCol+=j;
-        }
-    }
-*/
+}
 
         //create TimeHandler
     private class OthelloMover implements EventHandler<ActionEvent>{
@@ -336,6 +313,9 @@ public class Referee {
                 else
                     Referee.this.endTurn();
 
+
+               // _b1.setText("Green: " + Referee.this.GreenScore(_board) + " Pink: " + Referee.this.PinkScore(_board));
+                //_b2.setText("Current Player: " + Referee.this.currentPlayer());
             }
         }
     }

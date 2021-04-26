@@ -30,7 +30,9 @@ public class Controls {
   private RadioButton[][] _playerButtons;
   private CheckBox[] _deterministicButtons;
 
+
   public Controls(Game othello) {
+
     _game = othello;
 
     _controlsPane = new VBox();
@@ -43,6 +45,7 @@ public class Controls {
     /* TODO: Add score & turn labels. These should be contained in whatever class is controlling turn-taking, but
         be sure to add them to the _controlsPane here!  */
 
+    //_referee.setupLabels(_controlsPane);
     this.setupMenu();
     this.setupGameButtons();
   }

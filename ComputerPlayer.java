@@ -47,6 +47,7 @@ public class ComputerPlayer implements Player {
     @Override
     public boolean moveOver() {
 
+
        Move move= this.getBestMove(_board, _level, _color);
         _board.getArray()[move.getRow()][move.getCol()].addPiece(move.getRow(), move.getCol(), _color);
         _referee.flip(move.getRow(), move.getCol(), _color, _board);
@@ -86,23 +87,23 @@ public class ComputerPlayer implements Player {
             otherColor = Color.MAGENTA;
 
         System.out.println("ben");
-//        if (!this.gameOver(board) && _referee.whoWins(board)==color)
-//            return new Move(0, 0, 1000);
-//        else if (!this.gameOver(board) && _referee.whoWins(board)!=Color.YELLOW && _referee.whoWins(board)!= color)
-//            return new Move(0, 0, -1000);
-//        else if (!this.gameOver(board) && _referee.whoWins(board)== Color.YELLOW)
-//            return new Move(0, 0, 0);
-//
+        if (!this.gameOver(board) && _referee.whoWins(board)==color)
+            return new Move(0, 0, 1000);
+        else if (!this.gameOver(board) && _referee.whoWins(board)!=Color.YELLOW && _referee.whoWins(board)!= color)
+            return new Move(0, 0, -1000);
+        else if (!this.gameOver(board) && _referee.whoWins(board)== Color.YELLOW)
+            return new Move(0, 0, 0);
 
-        //method that tests if no moves at all
-//        if (_referee.cantMove(color, board)) {
-//            if (_level == 1)
-//                return new Move(0, 0, -1000);
-//            else{
-//                value = -1* (getBestMove(board, intelligence - 1, otherColor)).getValue();
-//                return new Move(0,0, value);
-//                //negative
-//        }}
+
+       // method that tests if no moves at all
+        if (_referee.cantMove(color, board)) {
+            if (intelligence == 1)
+                return new Move(0, 0, -1000);
+            else{
+                value = -1* (getBestMove(board, intelligence - 1, otherColor)).getValue();
+                return new Move(0,0, value);
+                //negative
+        }}
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
