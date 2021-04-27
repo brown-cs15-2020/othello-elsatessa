@@ -22,7 +22,6 @@ import javafx.scene.layout.VBox;
 public class Controls {
 
   private Game _game;
-
   private VBox _controlsPane;
 
   // Arrays for player buttons. Each button is checked to see if it is
@@ -31,26 +30,27 @@ public class Controls {
   private CheckBox[] _deterministicButtons;
 
 
+
+
   public Controls(Game othello) {
 
     _game = othello;
-
     _controlsPane = new VBox();
-
     _controlsPane.setPadding(new Insets(10));
-    _controlsPane.setSpacing(30);
-    _controlsPane.setAlignment(Pos.TOP_RIGHT);
+    _controlsPane.setSpacing(20);
+    _controlsPane.setAlignment(Pos.BOTTOM_RIGHT);
 
     this.setupInstructions();
-    /* TODO: Add score & turn labels. These should be contained in whatever class is controlling turn-taking, but
-        be sure to add them to the _controlsPane here!  */
 
-    //_referee.setupLabels(_controlsPane);
+
+    //adds Score and Current Player Labels to the Control Pane
+    othello.setupLabels(_controlsPane);
+
     this.setupMenu();
     this.setupGameButtons();
   }
 
-  // TODO: Be sure to use this method to add the control pane to the _root pane in Pane Organizer
+
   public Pane getPane() {
     return _controlsPane;
   }
@@ -70,7 +70,7 @@ public class Controls {
 
     HBox playersMenu = new HBox();
     playersMenu.setSpacing(10);
-    playersMenu.setAlignment(Pos.CENTER_RIGHT);
+    playersMenu.setAlignment(Pos.BOTTOM_RIGHT);
     playersMenu.getChildren().addAll(this.playerMenu(Constants.WHITE),
         this.playerMenu(Constants.BLACK));
 
@@ -84,12 +84,12 @@ public class Controls {
     VBox playerMenu = new VBox();
     playerMenu.setPrefWidth(Constants.CONTROLS_PANE_WIDTH / 2);
     playerMenu.setSpacing(10);
-    playerMenu.setAlignment(Pos.CENTER_RIGHT);
+    playerMenu.setAlignment(Pos.BOTTOM_RIGHT);
 
     // Player color.
-    String playerColor = "White";
+    String playerColor = "Green";
     if (player == Constants.BLACK) {
-      playerColor = "Black";
+      playerColor = "Pink";
     }
     Label playerName = new Label(playerColor);
 
@@ -189,23 +189,24 @@ public class Controls {
       boolean blackPlayerDeterministic = _deterministicButtons[Constants.BLACK]
           .isSelected();
 
-      /* TODO: Set the Game's players, which starts the game. whitePlayerMode and blackPlayerMode store the modes of
-          the players, where 0 is HumanPlayer, and 1-3 are levels 1-3 of ComputerPlayer respectively. We also provide
-          whitePlayerDeterministic and blackPlayerDeterministic which stores whether the players should be
-          deterministic or not, but feel free to ignore these unless you are doing the deterministic Bells&Whistles.
-          You should have a method in the game class that sets the players of the game, and then call this method here
-          with the information we provided! */
 
+//starts the game
       _game.startGame(whitePlayerMode, blackPlayerMode);
+
     }
   }
 
-  /* TODO: Fill out this handle method once you have figured out how to reset the game.
-      This will most likely not be done until after you have implemented turn-taking and score-keeping */
+  //resets the game
   private class ResetHandler implements EventHandler<ActionEvent> {
 
+
     @Override
-    public void handle(ActionEvent e){ }
+    public void handle(ActionEvent e){
+
+      _game.reset();
+    }
+
+
 
   }
 

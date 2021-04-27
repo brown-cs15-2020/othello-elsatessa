@@ -10,11 +10,14 @@ public class Board {
 
     public Board(Pane pane){
 
+        //creates board that is a 2D array of Othello Squares
         _board = new OthelloSquare[8][8];
         _pane = pane;
         this.setUpBoard();
     }
 
+    //creates a copy board constructor that takes in a board as a parameter and creates an exact
+    //replica of the board logically, but not graphically
     public Board (Board board){
         _board = new OthelloSquare[8][8];
          _pane = new Pane();
@@ -25,7 +28,6 @@ public class Board {
                 OthelloSquare square = new OthelloSquare(_pane);
                 square.setXY(j*50, i*50);
                 _board[i][j] = square;
-               // _pane.getChildren().add(square.getSquare());
 
                 if(board.getArray()[i][j].returnPiece(i, j)!=null){
                   Color color =  board.getArray()[i][j].returnColor(i,j);
@@ -35,22 +37,10 @@ public class Board {
 
             }
         }
-        //new instances
-        //iterate through old board- put new square on
-        //board is old board
-        //_board is new board/copy
-
 
     }
 
-    public void changeSquareColor(int row, int col){
-        _board[row][col].changeSquareColor();
-    }
-    public void changeColorBack(int row, int col){
-        _board[row][col].changeColorBack();
-    }
-
-
+    //sets up the board graphically and logically with 64 othello squares
     private void setUpBoard(){
         for (int i=0; i<8; i++){
             for (int j=0; j<8; j++){
@@ -63,6 +53,7 @@ public class Board {
         }
     }
 
+    //returns the 2D othello square array
     public OthelloSquare[][] getArray(){
 
         return _board;

@@ -1,124 +1,79 @@
 package othello;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 public class OthelloSquare {
 
-    //delayed association- piece instance variable-set piece to null in constructor
-    //method that then sets up piece and adds to board
     private Rectangle _square;
     private Pane _pane;
     private Piece[][] _pieces;
 
+    //takes in a Pane to add the pieces to
     public OthelloSquare(Pane othello) {
+
+        //creates an array of Pieces
         _pieces = new Piece[8][8];
         _pane = othello;
         _square = new Rectangle(50, 50);
         _square.setFill(Color.WHITE);
         _square.setStroke(Color.BLACK);
-     // this.setupBoardwithPieces();
-
     }
 
+    //changes square fill to white
     public void changeSquareColor(){
         _square.setFill(Color.GREY);
     }
 
+    //changes square fill to white
     public void changeColorBack(){
         _square.setFill(Color.WHITE);
     }
 
+    //returns square
     public Rectangle getSquare() {
         return _square;
     }
 
+    //sets the X and Y location of the square
     public void setXY(double x, double y) {
         _square.setX(x);
         _square.setY(y);
     }
 
 
-    public void setupBoardwithPieces() {
-
-this.addPiece(3,3, Color.MAGENTA);
-this.addPiece(3, 4, Color.GREEN);
-this.addPiece(4, 3, Color.GREEN);
-this.addPiece(4, 4, Color.MAGENTA);
-
-this.flipColor(3, 3, Color.GREEN);
-      /*  _pieces[3][3]= new Piece();
-        _pieces[3][3].setLocation(3,3);
-        _pane.getChildren().add(_pieces[3][3].getCircle());
-
-        _pieces[4][4]= new Piece();
-        _pieces[4][4].setLocation(4,4);
-        _pane.getChildren().add(_pieces[4][4].getCircle());
-
-        _pieces[3][4]= new Piece();
-        _pieces[3][4].setColor(Color.GREEN);
-        _pieces[3][4].setLocation(3,4);
-        _pane.getChildren().add(_pieces[3][4].getCircle());
-
-        _pieces[4][3]= new Piece();
-        _pieces[4][3].setColor(Color.GREEN);
-        _pieces[4][3].setLocation(4,3);
-
-        _pane.getChildren().add(_pieces[4][3].getCircle());
-
-       /* for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-
-                _pieces[i][j] = new Piece();
-                _pieces[i][j].setLocation(j, i);
-                _pane.getChildren().add(_pieces[i][j].getCircle());
-            }
-        }
-
-        Piece piece = new Piece();
-        piece.setLocation(8, 8);
-        _pane.getChildren().add(piece.getCircle());
-
-*/
-    }
-
+    //adds circle pieces to the board by setting their location to the row and col
+    //and setting their color to the color taken in as a parameter
     public void addPiece(int row, int col, Color color){
-
         _pieces[row][col]= new Piece();
         _pieces[row][col].setLocation(row, col);
         _pieces[row][col].setColor(color);
         _pane.getChildren().add(_pieces[row][col].getCircle());
     }
 
-    public Piece returnPiece(int row, int col){
+    //removes a piece from the board both logically and graphically
+    public void removePiece(int row, int col){
+        if(_pieces[row][col]!=null){
+        _pane.getChildren().remove(_pieces[row][col].getCircle());
+        _pieces[row][col]=null;}
+    }
 
+    //returns a piece at the specified row and col
+    public Piece returnPiece(int row, int col){
         return _pieces[row][col];
     }
 
-    public Color returnColor(int x, int y){
-        return _pieces[x][y].getColor();
+    //returns the color of a specific piece
+    public Color returnColor(int row, int col){
+        return _pieces[row][col].getColor();
     }
 
+    //sets the color of a specific piece
     public void flipColor(int row, int col, Color color){
 
         _pieces[row][col].getCircle().setFill(color);
     }
 
-    //public void changeColor(int x, int y, Color color){
-    //    _pieces[x][y].setColor(color);
-  //  }
 
 }
-
-//game starts after apply settings
-//controls knows what type of player
-//game class will make players
-//will pass that info to referee, determines when to move, controls timeline, player tells referee when game is over
-//referee class, instance variable (whiteplayer, blackplayer), method that sets them up,game should reference referee
-//in referee method take two players from the game class
-//players and referree- double association
-//1236 ClickHandler

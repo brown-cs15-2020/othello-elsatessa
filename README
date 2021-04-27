@@ -1,0 +1,36 @@
+Othello README
+
+Handin: This is my final handin.
+
+Overview:
+
+My Othello game has thirteen classes: App, Board, ComputerPlayer, Constants, Controls, Game, HumanPlayer, Move,
+ Othello Square, Pane Organizer, Piece, Player and Referee which interact in the following ways:
+
+-Game is my high level game class that starts the Game
+-The Player interface is used to help establish that the HumanPlayer and ComputerPlayers are both players
+-The Referee class has association to the two players, and is in charge of checking for sandwiches and valid
+moves and switching the current player (making sure the game is actually run)
+-The Human Player class contains a click handler and is used when a human player is playing to get mouse moves
+-The Computer Player class contains a MiniMax method that determines the best move for the computer
+-The Othello Square class creates squares that pieces can be added to
+-The Board class creates a Board of Othello Squares
+-The Piece class creates a Circle and sets it to a radius and color
+-The PaneOrganizer class sets up the pain which contains the Othello Board and the Controls Pane
+-The app class runs the game
+
+
+Design Choices:
+
+I chose to use a Player interface so that the Human and Computer players can have a lot of the same functions.
+My Player interface only has a moveOver method which plays the turn for the respective players. I chose to
+delegate a lot of the functions to my Referee class such as checking for sandwiches and flipping pieces. Both the
+Human and the Computer Players have references to the Referee class and are therefore able to check for sandwiches/
+valid moves and flip the pieces. It made sense to me to have the timeline in the Referee class so that it can create moves
+and switches players for both the computer and the human players. I created a copy constructor in my Board class so
+the MiniMax method can make moves only logically on the copy board in order to determine the best move. My Board class
+is made up of an array of Othello Squares which can have pieces added to them.
+
+Known Bugs: My Current Player and Score Labels don't update correctly
+
+Hours: This project took me 70 hours to complete

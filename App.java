@@ -3,7 +3,7 @@ package othello;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tetris.Constants;
+
 
 /**
   * This is the  main class where your Othello game will start.
@@ -25,7 +25,7 @@ public class App extends Application {
         PaneOrganizer organizer = new PaneOrganizer();
 
         //creates scene that is 300 x 600
-        Scene scene = new Scene(organizer.getRoot(),  670, 800);
+        Scene scene = new Scene(organizer.getRoot(),  670, 1000);
 
 
         // sets up the scene
